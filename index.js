@@ -86,13 +86,14 @@ console.log("Is a complete number? ", complete(28))
 
 //******** Aval Bini *******//
 
-function isPrime(x) {
-    for (let i = 2; i < x; i++) {
-        if (x % i === 0) {
-            return false
-        }
+function isPrime(n) {
+    let i = 2
+    for (i; i < n; i++)
+        if (n % i === 0) break
+    if(i === n) {
+        return true
     }
-    return true
+    return false
 }
 
 function findPrimeNumber(a, b) {
@@ -105,44 +106,27 @@ function findPrimeNumber(a, b) {
 
 findPrimeNumber(10, 20)
 
+
 //******** Jan sakht *******//
 
-let sz = 100000;
-let isPrimeNumber = new Array(sz + 1);
-isPrimeNumber.fill(false);
+function hardPassword(j) {
+    let str = j.toString()
+    let lStr = str.length
 
-// Function for Sieve of Eratosthenes
-function sieve() {
-    for (let i = 0; i <= sz; i++)
-        isPrimeNumber[i] = true;
+    for (let i = 0; i < lStr; i++) {
+        if (!isPrime(Number(str.substring(0, lStr - i)))) {
+            return false
+        }
+    }
+    return true
+}
 
-    isPrimeNumber[0] = isPrimeNumber[1] = false;
-
-    for (let i = 2; i * i <= sz; i++) {
-        if (isPrimeNumber[i]) {
-            for (let j = i * i; j < sz; j += i) {
-                isPrimeNumber[j] = false;
-            }
+function findHardPass(N) {
+    for (let j = 10 ** (N - 1); j < 10 ** N; j++) {
+        if (hardPassword(j)) {
+            console.log("Hard Password is: ",j)
         }
     }
 }
 
-function findPrimesD(d) {
-    // Range to check integers
-    let left = Math.pow(10, d - 1);
-    let right = Math.pow(10, d) - 1;
-
-    // For every integer in the range
-    for (let i = left; i <= right; i++) {
-
-        // If the current integer is prime
-        if (isPrimeNumber[i]) {
-            console.log(i + " ");
-
-        }
-
-    }
-}
-
-sieve();
-findPrimesD(3)
+findHardPass(3)
